@@ -18,7 +18,7 @@ public class CucumbersThread extends Thread {
             try {
                 machine.addOneCucumber();
                 Thread.sleep(30 + rand.nextInt(120));
-            } catch (IntrospectionException e) {
+            } catch (InterruptedException e) {
                 return;
             }
         }

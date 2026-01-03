@@ -12,7 +12,7 @@ public class SlicerThread extends Thread {
         while (true) {
             try {
                 machine.sliceVegetables();
-                Thread.sleep(50);
+              //  Thread.sleep(50);
             } catch (InterruptedException e) {
                 return;
             }
