@@ -1,39 +1,40 @@
 package assign_4;
 
 public class ThreadA extends Thread {
-private final Control ctrl;
+    private final Control ctrl;
 
-public ThreadA(Control ctrl) {
-    this.ctrl = ctrl;
-}
+    public ThreadA(Control ctrl) {
+        this.ctrl = ctrl;
+        setName("A");
+    }
 
-private void doA() {
-    System.out.println("A");
-}
+    private void doA() {
+        System.out.println("A");
+    }
 
-@Override
+    @Override
     public void run() {
-    while(true){
-        synchronized (ctrl) {
-            while (ctrl.states != State.States.A) {
-                try {
-                    ctrl.wait();
-                } catch (InterruptedException e) {
-                    return;
-                }
-            }
-            doA();
+        while (true) {
             synchronized (ctrl) {
-                ctrl.aDone++;
-                if(ctrl.aDone == 3) {
-                    ctrl.state = State.B;
-                    ctrl.bSwitchToC =false;
+                while (ctrl.state != State.A) {
+                    try {
+                        ctrl.wait();
+                    } catch (InterruptedException e) {
+                        return;
+                    }
                 }
+
+                doA();
+                ctrl.aDone++;
+
+                if (ctrl.aDone == 3) {
+                    ctrl.state = State.B; // after 3 A's go to B
+                }
+
                 ctrl.notifyAll();
             }
         }
     }
-}
 
 
 

@@ -5,6 +5,7 @@ public class ThreadB extends Thread {
 
     public ThreadB(Control ctrl) {
         this.ctrl = ctrl;
+        setName("B");
     }
 
     private void doB() {
@@ -15,19 +16,21 @@ public class ThreadB extends Thread {
     public void run() {
         while (true) {
             synchronized (ctrl) {
-                while (ctrl.states != State.B) {
+                while (ctrl.state != State.B) {
                     try {
                         ctrl.wait();
                     } catch (InterruptedException e) {
                         return;
                     }
                 }
+
                 doB();
-                synchronized (ctrl) {
-                    ctrl.bSwitchToC = true;
-                    ctrl.notifyAll();
-                }
-                Thread.yield();
+
+                // B always moves to C and resets C counter
+                ctrl.cDone = 0;
+                ctrl.state = State.C;
+
+                ctrl.notifyAll();
             }
         }
     }
