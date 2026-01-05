@@ -9,14 +9,14 @@ public class ThreadD extends Thread {
     }
 
     private void doD() {
-        System.out.println("D");
+        System.out.print("D");
     }
 
     @Override
     public void run() {
         while (true) {
             synchronized (ctrl) {
-                while (ctrl.state != State.D) {
+                while (ctrl.states != assign_4.State.D) {
                     try {
                         ctrl.wait();
                     } catch (InterruptedException e) {
@@ -27,7 +27,7 @@ public class ThreadD extends Thread {
                 doD();
 
                 // D always moves back to B (so A is only the first phase)
-                ctrl.state = State.B;
+                ctrl.states = assign_4.State.B;
 
                 ctrl.notifyAll();
             }

@@ -9,14 +9,14 @@ public class ThreadC extends Thread {
     }
 
     private void doC() {
-        System.out.println("C");
+        System.out.print("C");
     }
 
     @Override
     public void run() {
         while (true) {
             synchronized (ctrl) {
-                while (ctrl.state != State.C) {
+                while (ctrl.states != assign_4.State.C) {
                     try {
                         ctrl.wait();
                     } catch (InterruptedException e) {
@@ -28,7 +28,7 @@ public class ThreadC extends Thread {
                 ctrl.cDone++;
 
                 if (ctrl.cDone == 2) {
-                    ctrl.state = State.D; // after 2 C's go to D
+                    ctrl.states = assign_4.State.D; // after 2 C's go to D
                 }
 
                 ctrl.notifyAll();

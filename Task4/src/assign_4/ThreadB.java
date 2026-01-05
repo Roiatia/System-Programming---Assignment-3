@@ -9,14 +9,14 @@ public class ThreadB extends Thread {
     }
 
     private void doB() {
-        System.out.println("B");
+        System.out.print("B");
     }
 
     @Override
     public void run() {
         while (true) {
             synchronized (ctrl) {
-                while (ctrl.state != State.B) {
+                while (ctrl.states != assign_4.State.B) {
                     try {
                         ctrl.wait();
                     } catch (InterruptedException e) {
@@ -28,7 +28,7 @@ public class ThreadB extends Thread {
 
                 // B always moves to C and resets C counter
                 ctrl.cDone = 0;
-                ctrl.state = State.C;
+                ctrl.states = assign_4.State.C;
 
                 ctrl.notifyAll();
             }

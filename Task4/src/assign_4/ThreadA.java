@@ -9,14 +9,14 @@ public class ThreadA extends Thread {
     }
 
     private void doA() {
-        System.out.println("A");
+        System.out.print("A");
     }
 
     @Override
     public void run() {
         while (true) {
             synchronized (ctrl) {
-                while (ctrl.state != State.A) {
+                while (ctrl.states != assign_4.State.A) {
                     try {
                         ctrl.wait();
                     } catch (InterruptedException e) {
@@ -28,7 +28,7 @@ public class ThreadA extends Thread {
                 ctrl.aDone++;
 
                 if (ctrl.aDone == 3) {
-                    ctrl.state = State.B; // after 3 A's go to B
+                    ctrl.states = assign_4.State.B; // after 3 A's go to B
                 }
 
                 ctrl.notifyAll();
