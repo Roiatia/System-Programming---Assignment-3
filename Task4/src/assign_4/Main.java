@@ -7,14 +7,11 @@ public class Main {
         ThreadB threadB = new ThreadB(ctrl);
         ThreadC threadC = new ThreadC(ctrl);
         ThreadD threadD = new ThreadD(ctrl);
-        AtoC atoC = new AtoC(ctrl);
-        CtoD ctoD = new CtoD(ctrl);
-        DtoB dtoB = new DtoB(ctrl);
+
 
         threadA.start();
         threadB.start();
         threadC.start();
         threadD.start();
-        dtoB.start();
     }
 }
