@@ -6,12 +6,13 @@ public class Main {
 
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
-		 int numOfSaladsToPrepare = scan.nextInt();
 		System.out.println("Please Type How Many Salads To Prepare:");
+		int numOfSaladsToPrepare = 0;
+
 
 		while(true) {
 			String line = scan.nextLine();
-			if (!line.isEmpty()) {
+			if (line.isEmpty()) {
 				System.out.println("Input empty, try again!");
 				continue;
 			}
