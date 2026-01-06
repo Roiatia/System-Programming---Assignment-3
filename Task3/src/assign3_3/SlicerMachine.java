@@ -55,8 +55,7 @@ public class SlicerMachine {
 		notifyAll();
 	}
 	
-	// if there are enough vegetables in the slicer
-	// chamber, make another salad
+	// if there are enough vegetables in the slicer chamber, make another salad
 	public synchronized void sliceVegetables() throws InterruptedException {
 		while (!done && !canMakeSalad()) {
 			wait();
